@@ -47,3 +47,19 @@ void DestoryAd(AdjGraph* G){
     }
     free(G);
 }
+
+void Find_attractions(AdjGraph* G,int num){ //输出景点介绍信息、直接相邻景点列表和距离
+    printf("该景点介绍信息：%s\n",G->adjlist[num].introduce);
+
+
+    ArcNode *p=G->adjlist[num].firstarc;
+    int count=1;
+    printf("与该景点直接相连的景点及距离为：\n");
+    while(p->nextarc!=NULL)
+    {
+        printf("%d.%c\t%f米\n",count,G->adjlist[p->adjvex].name,p->length);
+        p=p->nextarc;
+
+    }
+
+}
