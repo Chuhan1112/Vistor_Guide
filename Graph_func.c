@@ -3,12 +3,13 @@
 #include "stdlib.h"
 #include "stdio.h"
 #include<string.h>
-
+#define INF 32767.0
 double road_length[MAXV][MAXV]={{0,INF,5,10,INF},{INF,0,INF,INF,6},{5,INF,0,3,8},{10,INF,3,0,INF},{INF,6,8,INF,0}};
 //存储道路长度的邻接矩阵
-char spot_name[MAXV][MAX]={“一教学楼”,“二教学楼”,“三教学楼”,“四教学楼”,“五教学楼”};
+int edge[MAXV][MAXV]={{0,INF,1,1,INF},{INF,0,INF,INF,1},{1,INF,0,1,1},{1,INF,1,0,INF},{INF,1,1,INF,0}};
+char spot_name[MAXV][MAX]={"一教学楼","二教学楼","三教学楼","四教学楼","五教学楼"};
 //存储节点名称
-char spot_introduce[MAXV][MAX]={“zheshi一教学楼”,“zheshi二教学楼”,“zheshi三教学楼”,“zheshi四教学楼”,“zheshi五教学楼”};
+char spot_introduce[MAXV][MAX]={"zheshi一教学楼","zheshi二教学楼","zheshi三教学楼","zheshi四教学楼","zheshi五教学楼"};
 //景点介绍
 
 void CreateGraph(AdjGraph *G, int A[MAXV][MAXV], int v, int e){
@@ -87,7 +88,7 @@ void Find_road(AdjGraph* G,int v1, int v2){
     j=LocateVex(G,v2); /* j是顶点w(弧头)的序号 */
     if(i<0||j<0||i==j)   //判断有无输入景点
         printf("输入景点有误\n");
-    Floyd(road_length,v1,v2);
+    Floyd(edge,v1,v2);
 
    
 }
