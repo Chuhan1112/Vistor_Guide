@@ -250,31 +250,21 @@ void Dispath(int g[][MAXV], int A[][MAXV], int path[][MAXV], int i, int j){
 }
 
 
-Boolean visited[MAXV]; /* 访问标志数组(全局量) */
-void(*VisitFunc)(char* v); /* 函数变量(全局量) */
+int visited[MAXV]={0};
+void DFS(AdjGraph *G,int v){
+    ArcNode *p;
+    visited[v]=1;
+    printf("%d ",v+1);
+    p=G->adjlist[v].firstarc;
+    while(p!=NULL){
+        if(visited[p->adjvex]==0)
+            DFS(G,p->adjvex);
+        p=p->nextarc;
+    }
 
-void DFS1(AdjGraph *G,int v,void(*Visit)(char*))
-{ /* 从第v个顶点出发递归地深度优先遍历图G。仅适用于邻接表存储结构 */
-    ArcNode *p; /* p指向表结点 */
-    visited[v]=true; /* 设置访问标志为TRUE(已访问) */
-    Visit(G->adjlist[v].name); /* 访问该顶点 */
-    for(p=G->adjlist[v].firstarc;p;p=p->nextarc) /* p依次指向v的邻接顶点 */
-        if(!visited[p->adjvex])
-            DFS1(G,p->adjvex,Visit); /* 对v的尚未访问的邻接点递归调用DFS1 */
 }
-
-void DFSTraverse1(AdjGraph *G,void(*Visit)(char*))
-{ /* 对图G作深度优先遍历。DFS1设函数指针参数 */
-    int v;
-    for(v=0;v<MAXV;v++)
-        visited[v]=false; /* 访问标志数组初始化，置初值为未被访问 */
-    for(v=0;v<MAXV;v++) /* 如果是连通图，只v=0就遍历全图 */
-        if(!visited[v]) /* v尚未被访问 */
-            DFS1(G,v,Visit); /* 对v调用DFS1 */
-    printf("\n");
-}
-
-void Recommend(AdjGraph* G,int v){
-    DFSTraverse1(G, G->adjlist[v].name);
+void Recommend(AdjGraph *G,int v){
+    printf("推荐路径为： ");
+    DFS(G,v-1);
 }
 
