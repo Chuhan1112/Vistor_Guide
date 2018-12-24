@@ -63,3 +63,4 @@ void Find_attractions(AdjGraph* G,int num){ //输出景点介绍信息、直接�
     }
 
 }
+

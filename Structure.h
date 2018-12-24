@@ -1,5 +1,5 @@
 #define MAX 500             //存储文字
-#define MAXV 15             //节点个数
+#define MAXV 5             //节点个数
 
 typedef struct ANode        //边节点
 {  
@@ -7,7 +7,7 @@ typedef struct ANode        //边节点
     struct ANode *nextarc;  //指向下一路线的指针
     char road_name[MAX];    //道路名称
     char point[MAX];        //道路起止地点
-    double length;           //道路长度
+    double length;           //道路长度 单位为米
     int  weigh;          
 }ArcNode;
 
