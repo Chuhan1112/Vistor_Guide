@@ -7,19 +7,50 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
+#include <MacTypes.h>
 //#include "Structure.h"
 //#include "Grah_func.h"
 
 #define MAX 500             //存储文字
-#define MAXV 5             //节点个数
+#define MAXV 15             //节点个数
 #define INF 32767.0
 
-double road_length[MAXV][MAXV]={{0,INF,5,10,INF},{INF,0,INF,INF,6},{5,INF,0,3,8},{10,INF,3,0,INF},{INF,6,8,INF,0}};//存储道路长度的邻接矩阵
-int edge[MAXV][MAXV]={{0,INF,1,1,INF},{INF,0,INF,INF,1},{1,INF,0,1,1},{1,INF,1,0,INF},{INF,1,1,INF,0}};
-char spot_name[MAXV][MAX]={"一教学楼","二教学楼","三教学楼","四教学楼","五教学楼"};
+double road_length[MAXV][MAXV] = {
+    {0,532,INF,945,INF,INF,50,INF,INF,INF,INF,INF,INF,INF,INF},
+    {532,0,87,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF},
+    {INF,87,0,358,INF,INF,INF,100,INF,INF,INF,INF,INF,INF,INF},
+    {945,INF,358,0,INF,INF,INF,INF,20,INF,INF,554,INF,INF,INF},
+    {INF,INF,INF,INF,0,300,INF,INF,28,INF,INF,INF,671,282,INF},
+    {INF,INF,INF,INF,300,0,INF,INF,INF,INF,INF,58,INF,INF,INF},
+    {50,INF,INF,INF,INF,INF,0,INF,INF,INF,INF,INF,INF,INF,49},
+    {INF,INF,100,INF,INF,INF,INF,0,INF,INF,166,INF,INF,INF,INF},
+    {INF,INF,INF,INF,28,INF,INF,INF,0,INF,INF,INF,INF,INF,INF},
+    {INF,INF,INF,20,INF,INF,INF,INF,INF,0,INF,INF,INF,INF,INF},
+    {INF,INF,INF,INF,INF,INF,INF,166,INF,INF,0,INF,INF,INF,INF},
+    {INF,INF,INF,INF,INF,58,INF,INF,INF,INF,INF,0,INF,INF,INF},
+    {INF,INF,INF,554,671,INF,INF,INF,INF,INF,INF,INF,0,INF,INF},
+    {INF,INF,INF,INF,282,INF,INF,INF,INF,INF,INF,INF,INF,0,INF},
+    {INF,INF,INF,INF,INF,INF,49,INF,INF,INF,INF,INF,INF,INF,0} };
+//存储道路长度的邻接矩阵
+int edge[MAXV][MAXV] = {     {0,1,INF,1,INF,INF,1,INF,INF,INF,INF,INF,INF,INF,INF},
+    {1,0,1,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF,INF},
+    {INF,1,0,1,INF,INF,INF,1,INF,INF,INF,INF,INF,INF,INF},
+    {1,INF,1,0,INF,INF,INF,INF,1,INF,INF,1,INF,INF,INF},
+    {INF,INF,INF,INF,0,1,INF,INF,1,INF,INF,INF,1,1,INF},
+    {INF,INF,INF,INF,1,0,INF,INF,INF,INF,INF,1,INF,INF,INF},
+    {1,INF,INF,INF,INF,INF,0,INF,INF,INF,INF,INF,INF,INF,1},
+    {INF,INF,1,INF,INF,INF,INF,0,INF,INF,1,INF,INF,INF,INF},
+    {INF,INF,INF,INF,1,INF,INF,INF,0,INF,INF,INF,INF,INF,INF},
+    {INF,INF,INF,1,INF,INF,INF,INF,INF,0,INF,INF,INF,INF,INF},
+    {INF,INF,INF,INF,INF,INF,INF,1,INF,INF,0,INF,INF,INF,INF},
+    {INF,INF,INF,INF,INF,1,INF,INF,INF,INF,INF,0,INF,INF,INF},
+    {INF,INF,INF,1,1,INF,INF,INF,INF,INF,INF,INF,0,INF,INF},
+    {INF,INF,INF,INF,1,INF,INF,INF,INF,INF,INF,INF,INF,0,INF},
+    {INF,INF,INF,INF,INF,INF,1,INF,INF,INF,INF,INF,INF,INF,0} };
+char spot_name[MAXV][MAX] = { "工学部操场","九一二操场","梅园操场","桂园操场","信部操场","国软操场","工部体育馆","万林艺术博物馆","信部体育馆","桂园餐厅","教五","国软教学楼","国立武汉大学牌坊","南门","洪波门" };
 //存储节点名称
-char spot_introduce[MAXV][MAX]={"zheshi一教学楼","zheshi二教学楼","zheshi三教学楼","zheshi四教学楼","zheshi五教学楼"};
-//景点介绍
+char spot_introduce[MAXV][MAX] = { "这是工学部操场","这是九一二操场","这是梅园操场","这是桂园操场","这是信部操场","这是国软操场","这是工部体育馆","这是万林艺术博物馆","这是信部体育馆","这是桂园餐厅","这是教五","这是国软教学楼","这是国立武汉大学牌坊","这是南门","这是洪波门" };
 
 typedef struct ANode        //边节点
 {
@@ -50,14 +81,66 @@ void CreateGraph(AdjGraph *G, int A[MAXV][MAXV], int v, int e);
 //void DispAdj(AdjGraph *G);
 void Find_attractions(AdjGraph* G,int num);
 void Find_road(AdjGraph* G,int v1, int v2);
-void Recommend(int num);//输入景点
-int LocateVex(AdjGraph* G,int u);   //输入景点编号
+int  LocateVex(AdjGraph* G,int u);   //输入景点编号
 void Floyd(int g[MAXV][MAXV],int v1, int v2);
 void Dispath(int g[][MAXV], int A[][MAXV], int path[][MAXV], int i, int j);
+void Recommend(AdjGraph* G,int v);//输入一个景点，推荐一条可以游览最多景点的路线，要求路线长度最短
+
+
+int main (void){
+    AdjGraph* Campus = (AdjGraph*)malloc(sizeof(AdjGraph));
+    CreateGraph(Campus, edge, 15, 15);
+    int a=0;
+    int v1,v2,v3,v4;
+    printf("************************************\n");
+    printf("        \t\t欢迎来到whu\t\t\n");
+    printf("\t\t\t1.景点查询\n");
+    printf("\t\t\t2.线路查询\n");
+    printf("\t\t\t3.浏览路径推荐\n");
+    printf("\t\t\t4.退出系统\n");
+    printf("*************************************\n");
+    while(1){
+        printf("请输入指令编号：\n");
+        scanf("%d",&a);
+        switch(a){
+            case 1:{
+                printf("请输入您想要查询的景点的编号!\n");
+                scanf("%d",&v1);
+                Find_attractions(Campus,v1);
+                printf("\n");
+                break;
+            }
+            case 2:{
+                printf("请依次输入您想要查询的两个景点的编号!\n");
+                scanf("%d%d",&v2,&v3);
+                Find_road(Campus,v2,v3);
+                printf("\n");
+                break;
+                
+            case 3:{
+                printf("请输入您的起点对应的编号!\n");
+                scanf("%d",&v4);
+                Recommend(Campus, v4);
+                printf("\n");
+                break;
+            }
+            case 4:{
+                printf("退出中...");
+                printf("退出成功！\n");
+                exit(0);
+            }
+            default: printf("数据有误,请重新输入!\n");
+            }
+        }
+    }
+    return 0;
+}
 
 void CreateGraph(AdjGraph *G, int A[MAXV][MAXV], int v, int e){
     int i,j; ArcNode *p;
-  //  G=(AdjGraph*)malloc(sizeof(AdjGraph));
+    for (int i=0; i<v; i++) {
+        G->adjlist[i].firstarc=NULL;
+    }
     for(i=0;i<v;i++){
         for(j=v-1;j>=0;j--){
             if(A[i][j]!=0 && A[i][j]!=INF){
@@ -65,19 +148,13 @@ void CreateGraph(AdjGraph *G, int A[MAXV][MAXV], int v, int e){
                 strcpy(G->adjlist[i].name,spot_name[i]);//景点名称赋值
                 strcpy(G->adjlist[i].introduce,spot_introduce[i]);//景点介绍
                 
-                
                 p=(ArcNode*)malloc(sizeof(ArcNode));
+                //p->nextarc=NULL;
                 p->adjvex=j;
                 p->weigh=A[i][j];
                 //头插法
                 p->nextarc=G->adjlist[i].firstarc;
                 G->adjlist[i].firstarc=p;
-                /*printf("请输入道路名称:\n");
-                 scanf("%s", p->road_name);
-                 printf("请输入道路起止地点:\n");
-                 scanf("%s", p->point);
-                 printf("请输入道路长度:\n");
-                 scanf("%f", p->length);*/
                 strcpy(p->road_name,"qqq");//道路名称赋值
                 p->length=road_length[i][j];//道路长度
                 p->point[0]=i;p->point[1]=p->adjvex;//道路起止地点 用节点代号储存
@@ -87,7 +164,6 @@ void CreateGraph(AdjGraph *G, int A[MAXV][MAXV], int v, int e){
     G->v=v;G->e=e;
 }
 
-
 void Find_attractions(AdjGraph* G,int num){ //输出景点介绍信息、直接相邻景点列表和距离
     printf("该景点介绍信息：%s\n",G->adjlist[num-1].introduce);
     
@@ -95,12 +171,13 @@ void Find_attractions(AdjGraph* G,int num){ //输出景点介绍信息、直接�
     ArcNode *p=G->adjlist[num-1].firstarc;
     int count=1;
     printf("与该景点直接相连的景点及距离为：\n");
-    while(p->nextarc!=NULL)
+    while(p!=NULL)
     {
         printf("%d.%s %f米\n",count,G->adjlist[p->adjvex].name,p->length);
         p=p->nextarc;
         count++;
     }
+    free(p);
     
 }
 
@@ -172,40 +249,32 @@ void Dispath(int g[][MAXV], int A[][MAXV], int path[][MAXV], int i, int j){
     printf("\n");
 }
 
-int main (void){
-    AdjGraph* Campus = (AdjGraph*)malloc(sizeof(AdjGraph));
-    CreateGraph(Campus, edge, 5, 5);
-    int a=0;
-    int b1,b2,b3;
-    printf("***********************\n");
-    printf("\t\t欢迎来到whu\t\t\n");
-    printf("1.景点查询\n");
-    printf("2.线路查询\n");
-    printf("3.浏览路径推荐\n");
-    printf("***********************\n");
-    while(1){
-        scanf("%d",&a);
-        switch(a){
-            case 1:{
-                printf("请输入您想要查询的景点的编号!\n");
-                scanf("%d",&b1);
-                Find_attractions(Campus,b1);
-                break;
-            }
-            case 2:{
-                printf("请依次输入您想要查询的两个景点的编号!\n");
-                scanf("%d%d",&b2,&b3);
-                Find_road(Campus,b2,b3);
-                break;
-                
-            case 3:{
-                printf("请输入您的起点对应的编号!\n");
-                
-                break;
-            }
-            default: printf("数据有误,请重新输入!\n");
-            }
-        }
-    }
-    return 0;
+
+Boolean visited[MAXV]; /* 访问标志数组(全局量) */
+void(*VisitFunc)(char* v); /* 函数变量(全局量) */
+
+void DFS1(AdjGraph *G,int v,void(*Visit)(char*))
+{ /* 从第v个顶点出发递归地深度优先遍历图G。仅适用于邻接表存储结构 */
+    ArcNode *p; /* p指向表结点 */
+    visited[v]=true; /* 设置访问标志为TRUE(已访问) */
+    Visit(G->adjlist[v].name); /* 访问该顶点 */
+    for(p=G->adjlist[v].firstarc;p;p=p->nextarc) /* p依次指向v的邻接顶点 */
+        if(!visited[p->adjvex])
+            DFS1(G,p->adjvex,Visit); /* 对v的尚未访问的邻接点递归调用DFS1 */
 }
+
+void DFSTraverse1(AdjGraph *G,void(*Visit)(char*))
+{ /* 对图G作深度优先遍历。DFS1设函数指针参数 */
+    int v;
+    for(v=0;v<MAXV;v++)
+        visited[v]=false; /* 访问标志数组初始化，置初值为未被访问 */
+    for(v=0;v<MAXV;v++) /* 如果是连通图，只v=0就遍历全图 */
+        if(!visited[v]) /* v尚未被访问 */
+            DFS1(G,v,Visit); /* 对v调用DFS1 */
+    printf("\n");
+}
+
+void Recommend(AdjGraph* G,int v){
+    DFSTraverse1(G, G->adjlist[v].name);
+}
+
